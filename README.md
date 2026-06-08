@@ -12,7 +12,7 @@
 
 ---
 
-Industry-standard C++ plugin framework for building custom VST3/AU/AAX instruments that receive fleet MIDI. Cross-platform (macOS, Windows, Linux), hardware-accurate MIDI routing, with Projucer project template for rapid development.
+Industry-standard C++ plugin framework for building custom VST3/AU/AAX instruments. Cross-platform (macOS, Windows, Linux), hardware-accurate MIDI routing, with Projucer-ready template.
 
 ---
 
@@ -32,22 +32,49 @@ git clone https://github.com/SuperInstance/fleet-midi-juce.git
 ## 🚀 Quick Start
 
 ```bash
-# see Getting Started below
+# Generate Projucer project:
+# Open Projucer, create new Audio Plugin project
+# Target: VST3 + AU + AAX
+# Copy lib/plugin-template.h as your processor header
+
+# Build:
+# Projucer → export Xcode (macOS) / Visual Studio (Windows)
+# cmake --build Builds/ --target fleet-midi-vst3
 ```
 
 ## 🏗️ Architecture
 
 ```
-Coming soon
+┌─────────────────────────────────────────────────────┐
+│                                                     │
+│   Fleet MIDI → VST Plugin → Any DAW                 │
+│                                                     │
+│   ┌────────────┐    ┌────────────┐    ┌──────────┐   │
+│   │ I2I       │───▶│ JUCE      │───▶│ Ableton  │   │
+│   │ Harbor    │    │ Processor │    │ / Logic  │   │
+│   └────────────┘    └────────────┘    └──────────┘   │
+│                                                     │
+│   Fleet agent thoughts → hardware MIDI out           │
+│   Build with Projucer → VST3 / AU / AAX              │
+│   Cross-platform: macOS · Windows · Linux            │
+└─────────────────────────────────────────────────────┘
 ```
 
 ## 📡 API
 
-See source code for endpoints.
+### C++ Plugin Template
+`lib/plugin-template.h` — a JUCE AudioProcessor subclass ready for customization.
+
+### Building
+Use Projucer to generate platform-specific build files:
+1. New Audio Plugin Project
+2. Add lib/plugin-template.h as source
+3. Export → Xcode/Visual Studio/CMake
+4. Build → VST3/AU/AAX installs to system
 
 ## 🧪 Beta Tested
 
-Part of the [SuperInstance MIDI Fleet](https://github.com/SuperInstance/construct-coordination/blob/main/FLEET_MIDI.md). Zeroshot-verified on every push via CI.
+Part of the [SuperInstance MIDI Fleet](https://github.com/SuperInstance/construct-coordination/blob/main/FLEET_MIDI.md). Every push verified via CI — zeroshot tests ensure zero-config operation out of the box.
 
 ## 🤝 Related
 
